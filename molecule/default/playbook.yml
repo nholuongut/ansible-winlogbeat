@@ -1,0 +1,10 @@
+---
+- name: Converge
+  hosts: all
+  vars:
+    winlogbeat_version: 0.0.0
+    winlogbeat_output_logstash: true
+    winlogbeat_logstash_hosts:
+      - "localhost:5044"
+  roles:
+    - role: stone-payments.winlogbeat

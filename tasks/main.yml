@@ -1,0 +1,19 @@
+---
+- name: install winlogbeat
+  win_chocolatey:
+    name: winlogbeat
+    state: present
+    version: "{{ winlogbeat_version }}"
+
+- name: ensure winlogbeat is running
+  win_service:
+    name: winlogbeat
+    start_mode: auto
+    state: started
+
+- name: copy config file
+  win_template:
+    src: "winlogbeat.yml.j2"
+    dest: "{{ winlogbeat_installation_path }}"
+    newline_sequence: '\n'
+  notify: restart winlogbeat

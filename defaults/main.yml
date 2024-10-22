@@ -1,0 +1,31 @@
+---
+# -----------------------------------------------------------------------------
+# Winlogbeat Version
+# -----------------------------------------------------------------------------
+winlogbeat_version: 6.3.0
+winlogbeat_installation_path: C:\ProgramData\chocolatey\lib\winlogbeat\tools\winlogbeat-{{ winlogbeat_version }}-windows-x86_64\winlogbeat.yml
+
+# -----------------------------------------------------------------------------
+# Winlogbeat Settings
+# -----------------------------------------------------------------------------
+winlogbeat_registry_file: C:/ProgramData/winlogbeat/.winlogbeat.yml
+winlogbeat_event_logs:
+  - name: Application
+    ignore_older: 72h
+  - name: Security
+  - name: System
+
+winlogbeat_logging_to_files: true
+winlogbeat_logging_files_path: C:/ProgramData/winlogbeat/Logs
+winlogbeat_logging_level: info
+
+# -----------------------------------------------------------------------------
+# Winlogbeat Outputs
+# -----------------------------------------------------------------------------
+winlogbeat_output_elaticsearch: false
+winlogbeat_elaticsearch_hosts:
+  - "http://localhost:9200"
+
+winlogbeat_output_logstash: false
+winlogbeat_logstash_hosts:
+  - "127.0.0.1:5044"

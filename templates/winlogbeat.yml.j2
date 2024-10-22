@@ -1,0 +1,32 @@
+# {{ ansible_managed }}
+
+# -----------------------------------------------------------------------------
+# winlogbeat Settings
+# -----------------------------------------------------------------------------
+winlogbeat.event_logs:
+{{ winlogbeat_event_logs | to_nice_yaml(indent=2) }}
+
+winlogbeat.registry_file: {{ winlogbeat_registry_file }}
+logging.to_files: {{ winlogbeat_logging_to_files | lower }}
+{% if winlogbeat_logging_to_files %}
+logging.files:
+  path: {{ winlogbeat_logging_files_path }}
+logging.level: {{ winlogbeat_logging_level }}
+{% endif %}
+
+# -----------------------------------------------------------------------------
+# winlogbeat Outputs Settings
+# -----------------------------------------------------------------------------
+{% if winlogbeat_output_elaticsearch %}
+output.elasticsearch.hosts:
+{% for host in winlogbeat_elaticsearch_hosts %}
+  - {{ host }}
+{% endfor %}
+{% endif -%}
+
+{% if winlogbeat_output_logstash %}
+output.logstash.hosts:
+{% for host in winlogbeat_logstash_hosts %}
+  - {{ host }}
+{% endfor %}
+{% endif -%}
